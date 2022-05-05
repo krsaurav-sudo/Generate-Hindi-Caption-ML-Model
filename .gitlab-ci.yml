@@ -1,0 +1,28 @@
+stages: 
+    - build
+    - test
+
+variables:
+    build_beast: "laptop.txt"
+
+Building Gaming Beast:
+    image: alpine
+    stage: build
+    script: 
+        - echo "Building a Gaming Beast"
+        - mkdir build
+        - echo "MainBoard" >> build/$build_beast
+        - cat build/$build_beast
+        - echo "KeyBoard" >> build/$build_beast
+        - cat build/$build_beast
+    artifacts:
+        paths:
+            - build
+
+Testing My Beast: 
+    image: alpine
+    stage: test
+    script: 
+        - test -f build/$build_beast
+        - grep "MainBoard" build/$build_beast
+        - grep "KeyBoard" build/$build_beast
